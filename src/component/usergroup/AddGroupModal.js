@@ -33,10 +33,10 @@ const AddGroupModal = () => {
             <input
               type="text"
               name="groupName"
-              placeholder="enter group name ......"
               value={groupName}
               onChange={onChange}
             />
+            <label htmlFor="name">Group name</label>
           </div>
         </div>
       </div>
