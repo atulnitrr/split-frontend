@@ -24,8 +24,8 @@ const UsersOptions = ({ groupName }) => {
   );
 };
 
-// UsersOptions.propTypes = {
-//   group: PropTypes.string.isRequired
-// };
+UsersOptions.propTypes = {
+  groupName: PropTypes.string.isRequired
+};
 
 export default UsersOptions;

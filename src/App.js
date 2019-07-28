@@ -10,6 +10,7 @@ import Group from "./component/pages/Group";
 import NotFound from "./component/pages/NotFound";
 import NavBar from "./component/layout/NavBar";
 import UserState from "./context/user/UserState";
+import TransactionState from "./context/transaction/TransactionState";
 
 function App() {
   useEffect(() => {
@@ -18,17 +19,19 @@ function App() {
   return (
     <Router>
       <UserState>
-        <NavBar />
-        <div className="container">
-          <Fragment>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/activity" component={Activity} />
-              <Route exact path="/group" component={Group} />
-              <Route component={NotFound} />
-            </Switch>
-          </Fragment>
-        </div>
+        <TransactionState>
+          <NavBar />
+          <div className="container">
+            <Fragment>
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/activity" component={Activity} />
+                <Route exact path="/group" component={Group} />
+                <Route component={NotFound} />
+              </Switch>
+            </Fragment>
+          </div>
+        </TransactionState>
       </UserState>
     </Router>
   );
