@@ -7,6 +7,7 @@ export default (state, action) => {
         ...state,
         groupAdded: true
       };
+
     case ADD_GROUP_FAILURE:
       return {
         ...state,

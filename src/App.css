@@ -15,3 +15,29 @@ body {
   background-color: #fff;
   color: #333;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  background-color: #333;
+}
+.navbar ul {
+  display: flex;
+  justify-content: space-around;
+}
+.navbar a {
+  display: flex;
+  justify-content: space-around;
+  margin: 0.25rem;
+  padding: 0.35rem;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.navbar a:hover {
+  color: aquamarine;
+}
+
+li {
+  list-style: none;
+}
