@@ -38,9 +38,7 @@ const AddPaymentModal = () => {
   return (
     <div id="add_bill" className="modal">
       <div className="modal-content">
-        <div className="row">
-          <h5>Record payment</h5>
-        </div>
+        <div className="row">Record payment</div>
         <div className="row">
           <div className="input-field">
             <select

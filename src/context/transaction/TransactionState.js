@@ -7,7 +7,9 @@ import {
   RECORD_PAYMENT_SUCCESS,
   SET_CURRENT_GROUP,
   GET_ALL_USERS_OF_GROUP_SUCCESS,
-  GET_ALL_USERS_OF_GROUP_FAILURE
+  GET_ALL_USERS_OF_GROUP_FAILURE,
+  RECORD_PAYMENT_FAILURE,
+  CLEAR_PAYMENT
 } from "../types";
 import { async } from "q";
 
@@ -15,6 +17,7 @@ const TransactionState = props => {
   const initialState = {
     loading: false,
     currentGroup: null,
+    paymentDone: false,
     currentGroupUserBalance: []
   };
 
@@ -31,8 +34,8 @@ const TransactionState = props => {
       console.log(res);
     } catch (error) {
       dispatch({
-        type: RECORD_PAYMENT_SUCCESS,
-        payload: error.response.transDetail
+        type: RECORD_PAYMENT_FAILURE,
+        payload: error.response.data
       });
       console.log(error.response);
     }
@@ -56,13 +59,19 @@ const TransactionState = props => {
     dispatch({ type: SET_CURRENT_GROUP, payload: group });
   };
 
+  const clearPayment = () => {
+    dispatch({ type: CLEAR_PAYMENT });
+  };
+
   return (
     <TransactionContext.Provider
       value={{
         loading: state.loading,
         currentGroup: state.currentGroup,
+        paymentDone: state.paymentDone,
         currentGroupUserBalance: state.currentGroupUserBalance,
         recordPayment,
+        clearPayment,
         getUserBalanceInGroup,
         setCurrentGroup
       }}

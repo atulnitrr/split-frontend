@@ -7,14 +7,17 @@ const Users = () => {
   const {
     currentGroupUserBalance,
     getUserBalanceInGroup,
-    currentGroup
+    currentGroup,
+    paymentDone,
+    clearPayment
   } = transactionContext;
 
   useEffect(() => {
     if (currentGroup !== null) {
       getUserBalanceInGroup(currentGroup);
+      clearPayment();
     }
-  }, [currentGroup]);
+  }, [currentGroup, paymentDone]);
 
   return (
     <Fragment>

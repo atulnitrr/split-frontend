@@ -15,7 +15,8 @@ const AddGroupModal = () => {
     } else if (error !== null) {
       M.toast({ html: error, classes: "red" });
     }
-  }, [error, groupAdded]);
+    clearError();
+  }, [groupAdded]);
 
   const onsubmit = e => {
     if (groupName === "") {
@@ -28,6 +29,7 @@ const AddGroupModal = () => {
   return (
     <div id="add_group_modal" className="modal" style={modalStyle}>
       <div className="modal-content">
+        <div className="row">Add Group</div>
         <div className="row">
           <div className="input-field">
             <input
@@ -36,7 +38,7 @@ const AddGroupModal = () => {
               value={groupName}
               onChange={onChange}
             />
-            <label htmlFor="name">Group name</label>
+            <label htmlFor="name">group</label>
           </div>
         </div>
       </div>

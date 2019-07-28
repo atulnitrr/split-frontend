@@ -35,6 +35,7 @@ const AddPersonModal = () => {
   return (
     <div id="add_person_to_group" className="modal" style={modalStyle}>
       <div className="modal-content">
+        <div className="row">Add user in group</div>
         <div className="row">
           <div className="input-field">
             <select
