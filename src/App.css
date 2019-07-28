@@ -38,6 +38,25 @@ body {
   color: aquamarine;
 }
 
+.userItem {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid black;
+  border: none;
+  margin: 0.75rem 0;
+  padding-top: 0.25rem;
+  border-bottom: 1px solid rebeccapurple;
+}
+
+/* .userItem h6 {
+} */
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+}
+
 li {
   list-style: none;
 }

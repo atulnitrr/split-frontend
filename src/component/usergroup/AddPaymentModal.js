@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
 import UserContext from "../../context/user/userContext";
 import TransactionContext from "../../context/transaction/transactionContext";
@@ -7,7 +7,7 @@ import UsersOptions from "./UsersOptions";
 
 const AddPaymentModal = () => {
   const userContext = useContext(UserContext);
-  const { currentGroupUser, loading, getUsersOfGroup, userAdded } = userContext;
+  const { getUsersOfGroup } = userContext;
 
   const transactionContext = useContext(TransactionContext);
   const { recordPayment } = transactionContext;

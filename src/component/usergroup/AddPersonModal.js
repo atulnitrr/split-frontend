@@ -8,15 +8,7 @@ const AddPersonModal = () => {
   const [userGroup, setUserGroup] = useState("");
 
   const userContext = useContext(UserContext);
-  const {
-    getAllGroups,
-    groups,
-    loading,
-    userAdded,
-    addUser,
-    error,
-    clearError
-  } = userContext;
+  const { userAdded, addUser, error, clearError } = userContext;
 
   useEffect(() => {
     if (userAdded) {
