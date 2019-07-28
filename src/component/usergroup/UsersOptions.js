@@ -2,7 +2,16 @@ import React, { useContext, useEffect } from "react";
 import UserContext from "../../context/user/userContext";
 import PropTypes from "prop-types";
 
-const UsersOptions = ({ currentGroupUser, loading }) => {
+const UsersOptions = ({ groupName }) => {
+  const userContext = useContext(UserContext);
+  const { currentGroupUser, loading, getUsersOfGroup, userAdded } = userContext;
+
+  useEffect(() => {
+    if (groupName !== "") {
+      getUsersOfGroup(groupName);
+    }
+  }, [userAdded]);
+
   return (
     !loading &&
     currentGroupUser.length > 0 &&
@@ -15,8 +24,8 @@ const UsersOptions = ({ currentGroupUser, loading }) => {
   );
 };
 
-UsersOptions.propTypes = {
-  group: PropTypes.string.isRequired
-};
+// UsersOptions.propTypes = {
+//   group: PropTypes.string.isRequired
+// };
 
 export default UsersOptions;

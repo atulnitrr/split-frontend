@@ -47,10 +47,7 @@ const AddPaymentModal = () => {
               <option value="" disabled>
                 Select user ...
               </option>
-              <UsersOptions
-                currentGroupUser={currentGroupUser}
-                loading={loading}
-              />
+              <UsersOptions groupName={groupName} />
             </select>
           </div>
         </div>
