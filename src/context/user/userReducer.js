@@ -2,7 +2,9 @@ import {
   ADD_GROUP_SUCCESS,
   ADD_GROUP_FAILURE,
   CLEAR_ERROR,
-  GET_ALL_GROUPS
+  GET_ALL_GROUPS,
+  USER_ADDED_SUCCESS,
+  USER_ADDED_FAILURE
 } from "../types";
 
 export default (state, action) => {
@@ -12,11 +14,17 @@ export default (state, action) => {
         ...state,
         groupAdded: true
       };
-
+    case USER_ADDED_SUCCESS:
+      return {
+        ...state,
+        userAdded: true
+      };
+    case USER_ADDED_FAILURE:
     case ADD_GROUP_FAILURE:
       return {
         ...state,
         groupAdded: false,
+        userAdded: false,
         error: action.payload
       };
     case GET_ALL_GROUPS:
@@ -29,6 +37,7 @@ export default (state, action) => {
       return {
         ...state,
         groupAdded: false,
+        userAdded: false,
         error: null
       };
 

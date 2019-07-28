@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import M from "materialize-css/dist/js/materialize.min.js";
 import GroupOptions from "./GroupOptions";
 import UserContext from "../../context/user/userContext";
 
@@ -7,9 +8,34 @@ const AddPersonModal = () => {
   const [userGroup, setUserGroup] = useState("");
 
   const userContext = useContext(UserContext);
-  const { getAllGroups, groups, loading } = userContext;
+  const {
+    getAllGroups,
+    groups,
+    loading,
+    userAdded,
+    addUser,
+    error,
+    clearError
+  } = userContext;
 
-  const onChange = e => setUserName(e.target.value);
+  useEffect(() => {
+    if (userAdded) {
+      M.toast({ html: `${userName} added`, classes: "green" });
+    } else if (error !== null) {
+      M.toast({ html: `${userName} could not be added`, classes: "red" });
+    }
+    clearError();
+  }, [userAdded, error]);
+
+  const onChange = e => {
+    setUserName(e.target.value);
+  };
+
+  const onsubmit = e => {
+    const users = [];
+    users.push(userName);
+    addUser(userGroup, users);
+  };
   return (
     <div id="add_person_to_group" className="modal" style={modalStyle}>
       <div className="modal-content">
@@ -42,7 +68,7 @@ const AddPersonModal = () => {
         </div>
       </div>
       <div className="modal-footer">
-        <a href="#!" className="btn blue modal-close">
+        <a href="#!" className="btn blue modal-close" onClick={onsubmit}>
           {" "}
           Enter{" "}
         </a>

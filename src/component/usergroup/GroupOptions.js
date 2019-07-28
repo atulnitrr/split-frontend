@@ -3,7 +3,7 @@ import UserContext from "../../context/user/userContext";
 
 const GroupOptions = () => {
   const userContext = useContext(UserContext);
-  const { getAllGroups, groups, loading } = userContext;
+  const { getAllGroups, groups } = userContext;
   useEffect(() => {
     getAllGroups();
   }, []);
