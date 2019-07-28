@@ -1,1 +1,3 @@
-export const ADD_GROUP = "ADD_GROUP";
+export const ADD_GROUP_SUCCESS = "ADD_GROUP_SUCCESS";
+export const ADD_GROUP_FAILURE = "ADD_GROUP_FAILURE";
+export const CLEAR_ERROR = "CLEAR_ERROR";

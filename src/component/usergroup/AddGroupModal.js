@@ -1,15 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import UserContext from "../../context/user/userContext";
 import M from "materialize-css/dist/js/materialize.min.js";
 
 const AddGroupModal = () => {
-  const [groupName, setGroupName] = useState("");
+  const userContext = useContext(UserContext);
+  const { addGroup, clearError, error, groupAdded } = userContext;
 
+  const [groupName, setGroupName] = useState("");
   const onChange = e => setGroupName(e.target.value);
+
+  useEffect(
+    () => {
+      if (groupAdded) {
+        M.toast({ html: `Group added ${groupName}` });
+      } else if (error !== null) {
+        M.toast({ html: error, classes: "red" });
+        clearError();
+      }
+    },
+    error,
+    groupAdded
+  );
 
   const onsubmit = e => {
     if (groupName === "") {
       M.toast({ html: "Please enter group Name" });
     }
+    addGroup(groupName);
   };
 
   return (
@@ -43,7 +60,7 @@ const AddGroupModal = () => {
 
 const modalStyle = {
   width: "40%",
-  height: "30%"
+  height: "40%"
 };
 
 export default AddGroupModal;
