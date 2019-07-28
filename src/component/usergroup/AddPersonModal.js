@@ -32,9 +32,13 @@ const AddPersonModal = () => {
   };
 
   const onsubmit = e => {
-    const users = [];
-    users.push(userName);
-    addUser(userGroup, users);
+    if (userName === "") {
+      M.toast({ html: `Please give user name ${userName} `, classes: "red" });
+    } else {
+      const users = [];
+      users.push(userName);
+      addUser(userGroup, users);
+    }
   };
   return (
     <div id="add_person_to_group" className="modal" style={modalStyle}>

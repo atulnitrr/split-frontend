@@ -1,6 +1,8 @@
 import React, { useReducer } from "react";
 import UserContext from "./userContext";
 import userReducer from "./userReducer";
+import axios from "axios";
+import { URL } from "../../Appconst";
 import {
   ADD_GROUP_SUCCESS,
   ADD_GROUP_FAILURE,
@@ -8,11 +10,10 @@ import {
   GET_ALL_GROUPS,
   USER_ADDED,
   USER_ADDED_SUCCESS,
-  USER_ADDED_FAILURE
+  USER_ADDED_FAILURE,
+  GET_ALL_USERS_OF_GROUP_SUCCESS,
+  GET_ALL_USERS_OF_GROUP_FAILURE
 } from "../types";
-import axios from "axios";
-import { URL } from "../../Appconst";
-import { async } from "q";
 
 const UserState = props => {
   const initialState = {
@@ -20,6 +21,7 @@ const UserState = props => {
     userAdded: false,
     error: null,
     groups: [],
+    currentGroupUser: [],
     loading: true
   };
 
@@ -58,6 +60,18 @@ const UserState = props => {
     }
   };
 
+  const getUsersOfGroup = async group => {
+    try {
+      const res = await axios.get(`${URL}/users/${group}`);
+      dispatch({ type: GET_ALL_USERS_OF_GROUP_SUCCESS, payload: res.data });
+    } catch (error) {
+      dispatch({
+        type: GET_ALL_USERS_OF_GROUP_FAILURE,
+        payload: error.response.data
+      });
+      console.log(error.response);
+    }
+  };
   const clearError = () => {
     dispatch({ type: CLEAR_ERROR });
   };
@@ -70,10 +84,12 @@ const UserState = props => {
         groups: state.groups,
         loading: state.loading,
         userAdded: state.userAdded,
+        currentGroupUser: state.currentGroupUser,
         addGroup,
         clearError,
         getAllGroups,
-        addUser
+        addUser,
+        getUsersOfGroup
       }}
     >
       {props.children}

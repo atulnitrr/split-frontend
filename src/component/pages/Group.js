@@ -5,7 +5,6 @@ const Group = () => {
   return (
     <div>
       <UserGroup />
-      <h3>Group</h3>
     </div>
   );
 };

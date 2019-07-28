@@ -13,6 +13,14 @@ const AddBtn = () => {
       <ul>
         <li>
           <a
+            href="#add_bill"
+            className="btn-floating btn-large modal-trigger blue darken-2"
+          >
+            <i className="large material-icons">payment</i>
+          </a>
+        </li>
+        <li>
+          <a
             href="#add_person_to_group"
             className="btn-floating btn-large modal-trigger blue darken-2"
           >

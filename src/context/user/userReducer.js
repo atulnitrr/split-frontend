@@ -4,7 +4,9 @@ import {
   CLEAR_ERROR,
   GET_ALL_GROUPS,
   USER_ADDED_SUCCESS,
-  USER_ADDED_FAILURE
+  USER_ADDED_FAILURE,
+  GET_ALL_USERS_OF_GROUP_SUCCESS,
+  GET_ALL_USERS_OF_GROUP_FAILURE
 } from "../types";
 
 export default (state, action) => {
@@ -32,6 +34,18 @@ export default (state, action) => {
         ...state,
         loading: false,
         groups: action.payload
+      };
+    case GET_ALL_USERS_OF_GROUP_SUCCESS:
+      return {
+        ...state,
+        currentGroupUser: action.payload,
+        loading: false
+      };
+    case GET_ALL_USERS_OF_GROUP_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        loading: false
       };
     case CLEAR_ERROR:
       return {
