@@ -1,4 +1,9 @@
-import { ADD_GROUP_SUCCESS, ADD_GROUP_FAILURE, CLEAR_ERROR } from "../types";
+import {
+  ADD_GROUP_SUCCESS,
+  ADD_GROUP_FAILURE,
+  CLEAR_ERROR,
+  GET_ALL_GROUPS
+} from "../types";
 
 export default (state, action) => {
   switch (action.type) {
@@ -14,7 +19,12 @@ export default (state, action) => {
         groupAdded: false,
         error: action.payload
       };
-
+    case GET_ALL_GROUPS:
+      return {
+        ...state,
+        loading: false,
+        groups: action.payload
+      };
     case CLEAR_ERROR:
       return {
         ...state,

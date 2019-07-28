@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
+import GroupOptions from "./GroupOptions";
+import UserContext from "../../context/user/userContext";
 
 const AddPersonModal = () => {
   const [userName, setUserName] = useState("");
   const [userGroup, setUserGroup] = useState("");
+
+  const userContext = useContext(UserContext);
+  const { getAllGroups, groups, loading } = userContext;
+
   const onChange = e => setUserName(e.target.value);
   return (
     <div id="add_person_to_group" className="modal" style={modalStyle}>
@@ -12,13 +18,14 @@ const AddPersonModal = () => {
             <select
               name="userGroup"
               value={userGroup}
+              // this class is imp otherwise it wont show option in chrome
+              className="browser-default"
               onChange={e => setUserGroup(e.target.value)}
             >
               <option value="" disabled>
                 Select group
               </option>
-              <option>Tst</option>
-              <option>Tet</option>
+              <GroupOptions />
             </select>
           </div>
         </div>
