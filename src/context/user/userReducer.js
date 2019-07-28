@@ -10,12 +10,14 @@ export default (state, action) => {
     case ADD_GROUP_FAILURE:
       return {
         ...state,
+        groupAdded: false,
         error: action.payload
       };
 
     case CLEAR_ERROR:
       return {
         ...state,
+        groupAdded: false,
         error: null
       };
 

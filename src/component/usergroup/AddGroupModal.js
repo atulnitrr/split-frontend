@@ -9,24 +9,20 @@ const AddGroupModal = () => {
   const [groupName, setGroupName] = useState("");
   const onChange = e => setGroupName(e.target.value);
 
-  useEffect(
-    () => {
-      if (groupAdded) {
-        M.toast({ html: `Group added ${groupName}` });
-      } else if (error !== null) {
-        M.toast({ html: error, classes: "red" });
-        clearError();
-      }
-    },
-    error,
-    groupAdded
-  );
+  useEffect(() => {
+    if (groupAdded) {
+      M.toast({ html: `Group added --> ${groupName}`, classes: "green" });
+    } else if (error !== null) {
+      M.toast({ html: error, classes: "red" });
+    }
+  }, [error, groupAdded]);
 
   const onsubmit = e => {
     if (groupName === "") {
-      M.toast({ html: "Please enter group Name" });
+      M.toast({ html: "Please enter group Name", classes: "red" });
+    } else {
+      addGroup(groupName);
     }
-    addGroup(groupName);
   };
 
   return (
