@@ -4,3 +4,4 @@ export const LOGING_SUCCESS = "LOGING_SUCCESS";
 export const LOGING_FAILURE = "LOGING_FAILURE";
 export const CLEAR_AUTH_ERROR = "CLEAR_AUTH_ERROR";
 export const CLEAR_REGISTER = "CLEAR_REGISTER";
+export const LOGOUT = "LOGOUT";

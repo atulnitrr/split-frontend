@@ -4,6 +4,7 @@ import "materialize-css/dist/css/materialize.min.css";
 import M from "materialize-css/dist/js/materialize.min.js";
 import "./App.css";
 import UserGroup from "./component/usergroup/UserGroup";
+import PrivateRoute from "./component/route/PrivateRoute";
 import Home from "./component/pages/Home";
 import Activity from "./component/pages/Activity";
 import Group from "./component/pages/Group";
@@ -28,9 +29,9 @@ function App() {
             <div className="container">
               <Fragment>
                 <Switch>
-                  <Route exact path="/" component={Home} />
-                  <Route exact path="/activity" component={Activity} />
-                  <Route exact path="/group" component={Group} />
+                  <PrivateRoute exact path="/" component={Home} />
+                  <PrivateRoute exact path="/activity" component={Activity} />
+                  <PrivateRoute exact path="/group" component={Group} />
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/register" component={Register} />
                   <Route component={NotFound} />

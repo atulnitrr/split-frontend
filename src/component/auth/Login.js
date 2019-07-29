@@ -17,7 +17,7 @@ const Login = props => {
     if (loggedinUser !== null) {
       props.history.push("/");
     }
-  });
+  }, [loggedinUser]);
 
   const onChange = e => setuser({ ...user, [e.target.name]: e.target.value });
 
@@ -25,7 +25,6 @@ const Login = props => {
     e.preventDefault();
     if (validateInput()) {
       login(user);
-      console.log(user);
     }
   };
 
@@ -38,7 +37,7 @@ const Login = props => {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-7">
       <div className="row">
         <div className="col s4 offset-s4">
           <h5>

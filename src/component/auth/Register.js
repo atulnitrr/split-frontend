@@ -29,7 +29,6 @@ const Register = props => {
     e.preventDefault();
     if (vlaidateInput()) {
       register(user);
-      console.log(user);
     }
   };
 
@@ -45,7 +44,7 @@ const Register = props => {
   };
 
   return (
-    <div className="container">
+    <div className="container mt-7">
       <div className="row ">
         <div className="col s4 offset-s4">
           <h5>

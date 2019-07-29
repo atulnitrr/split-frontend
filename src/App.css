@@ -25,6 +25,8 @@ body {
   display: flex;
   justify-content: space-around;
 }
+
+.welcome,
 .navbar a {
   display: flex;
   justify-content: space-around;
@@ -59,4 +61,16 @@ body {
 
 li {
   list-style: none;
+}
+
+.mt-4 {
+  margin-top: 4rem;
+}
+
+.mt-7 {
+  margin-top: 7rem;
+}
+
+.surround {
+  border: 1px solid green;
 }

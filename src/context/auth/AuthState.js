@@ -5,8 +5,10 @@ import axois from "axios";
 import {
   CLEAR_REGISTER,
   REGISTER_SUCCESS,
-  LOGING_SUCCESS
+  LOGING_SUCCESS,
+  LOGOUT
 } from "../types/AuthTypes";
+import { CLEAR_ERROR } from "../types";
 
 const AuthState = props => {
   const initialState = {
@@ -19,19 +21,26 @@ const AuthState = props => {
 
   const register = async user => {
     try {
-      console.log(user);
       dispatch({ type: REGISTER_SUCCESS });
     } catch (error) {}
   };
 
   const login = async user => {
     try {
-      dispatch({ type: LOGING_SUCCESS, payload: user.email });
+      dispatch({ type: LOGING_SUCCESS, payload: user.email.split("@")[0] });
     } catch (error) {}
+  };
+
+  const logout = () => {
+    dispatch({ type: LOGOUT });
   };
 
   const clearRegister = () => {
     dispatch({ type: CLEAR_REGISTER });
+  };
+
+  const clearError = () => {
+    dispatch({ type: CLEAR_ERROR });
   };
 
   return (
@@ -42,7 +51,9 @@ const AuthState = props => {
         loggedinUser: state.loggedinUser,
         register,
         clearRegister,
-        login
+        login,
+        logout,
+        clearError
       }}
     >
       {props.children}
