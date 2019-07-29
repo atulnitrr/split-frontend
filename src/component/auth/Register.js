@@ -1,6 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import M from "materialize-css/dist/js/materialize.min.js";
 
 const Register = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    confirmpassword: ""
+  });
+
+  const { email, password, confirmpassword } = user;
+
+  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
+
+  const onSubmit = e => {
+    e.preventDefault();
+    vlaidateInput();
+    console.log(user);
+  };
+
+  const vlaidateInput = () => {
+    if (email === "" || password === "" || confirmpassword === "") {
+      M.toast({ html: "Please fill all fields in the form", classes: "red" });
+    } else if (password !== confirmpassword) {
+      M.toast({ html: "Password dont match", classes: "red" });
+    }
+  };
+
   return (
     <div className="container">
       <div className="row ">
@@ -11,7 +36,7 @@ const Register = () => {
         </div>
       </div>
       <div className="row">
-        <form className="col s12">
+        <form className="col s12" onSubmit={onSubmit}>
           <div className="row">
             <div className="input-field col s4 offset-s4">
               <input
@@ -19,6 +44,8 @@ const Register = () => {
                 type="email"
                 name="email"
                 className="validate"
+                value={email}
+                onChange={onChange}
               />
               <label htmlFor="email"> Email</label>
             </div>
@@ -26,7 +53,14 @@ const Register = () => {
 
           <div className="row">
             <div className="input-field col s4 offset-s4">
-              <input id="password" type="password" className="validate" />
+              <input
+                id="password"
+                type="password"
+                name="password"
+                className="validate"
+                value={password}
+                onChange={onChange}
+              />
               <label htmlFor="password">Password</label>
             </div>
           </div>
@@ -38,6 +72,8 @@ const Register = () => {
                 id="confirmpassword"
                 name="confirmpassword"
                 className="validate"
+                value={confirmpassword}
+                onChange={onChange}
               />
               <label htmlFor="confirmpassword">Confirm Password</label>
             </div>
