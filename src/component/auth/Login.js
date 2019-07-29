@@ -1,7 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
+import AuthContext from "../../context/auth/authContext";
 
-const Login = () => {
+const Login = props => {
   const [user, setuser] = useState({
     email: "",
     password: ""
@@ -9,18 +10,31 @@ const Login = () => {
 
   const { email, password } = user;
 
+  const authContext = useContext(AuthContext);
+  const { login, loggedinUser } = authContext;
+
+  useEffect(() => {
+    if (loggedinUser !== null) {
+      props.history.push("/");
+    }
+  });
+
   const onChange = e => setuser({ ...user, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
-    validateInput();
-    console.log(user);
+    if (validateInput()) {
+      login(user);
+      console.log(user);
+    }
   };
 
   const validateInput = () => {
     if (email === "" || password === "") {
       M.toast({ html: "Please enter all fields", classes: "red" });
+      return false;
     }
+    return true;
   };
 
   return (
