@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
+import AuthContext from "../../context/auth/authContext";
 
-const Register = () => {
+const Register = props => {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -10,20 +11,37 @@ const Register = () => {
 
   const { email, password, confirmpassword } = user;
 
+  const authContext = useContext(AuthContext);
+  const { isRegistered, register, clearRegister, error } = authContext;
+
+  useEffect(() => {
+    if (isRegistered) {
+      props.history.push("/login");
+      // this sets isRegistered to false , if i dont do this then after register it will go login but when we click on register agina it
+      // will again redirect to login
+      clearRegister();
+    }
+  });
+
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
 
   const onSubmit = e => {
     e.preventDefault();
-    vlaidateInput();
-    console.log(user);
+    if (vlaidateInput()) {
+      register(user);
+      console.log(user);
+    }
   };
 
   const vlaidateInput = () => {
     if (email === "" || password === "" || confirmpassword === "") {
       M.toast({ html: "Please fill all fields in the form", classes: "red" });
+      return false;
     } else if (password !== confirmpassword) {
       M.toast({ html: "Password dont match", classes: "red" });
+      return false;
     }
+    return true;
   };
 
   return (

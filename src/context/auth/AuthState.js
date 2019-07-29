@@ -2,11 +2,7 @@ import React, { useReducer } from "react";
 import AuthContext from "./authContext";
 import authReducer from "./authReducer";
 import axois from "axios";
-import {
-  AuthTypes,
-  CLEAR_REGISTER,
-  REGISTER_SUCCESS
-} from "../types/AuthTypes";
+import { CLEAR_REGISTER, REGISTER_SUCCESS } from "../types/AuthTypes";
 
 const AuthState = props => {
   const initialState = {

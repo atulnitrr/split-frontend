@@ -12,6 +12,7 @@ import NavBar from "./component/layout/NavBar";
 import Login from "./component/auth/Login";
 import Register from "./component/auth/Register";
 import UserState from "./context/user/UserState";
+import AuthState from "./context/auth/AuthState";
 import TransactionState from "./context/transaction/TransactionState";
 
 function App() {
@@ -20,23 +21,25 @@ function App() {
   });
   return (
     <Router>
-      <UserState>
-        <TransactionState>
-          <NavBar />
-          <div className="container">
-            <Fragment>
-              <Switch>
-                <Route exact path="/" component={Home} />
-                <Route exact path="/activity" component={Activity} />
-                <Route exact path="/group" component={Group} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/register" component={Register} />
-                <Route component={NotFound} />
-              </Switch>
-            </Fragment>
-          </div>
-        </TransactionState>
-      </UserState>
+      <AuthState>
+        <UserState>
+          <TransactionState>
+            <NavBar />
+            <div className="container">
+              <Fragment>
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route exact path="/activity" component={Activity} />
+                  <Route exact path="/group" component={Group} />
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/register" component={Register} />
+                  <Route component={NotFound} />
+                </Switch>
+              </Fragment>
+            </div>
+          </TransactionState>
+        </UserState>
+      </AuthState>
     </Router>
   );
 }
