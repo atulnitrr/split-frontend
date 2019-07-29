@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import M from "materialize-css/dist/js/materialize.min.js";
 
 const Login = () => {
   const [user, setuser] = useState({
@@ -10,6 +11,18 @@ const Login = () => {
 
   const onChange = e => setuser({ ...user, [e.target.name]: e.target.value });
 
+  const onSubmit = e => {
+    e.preventDefault();
+    validateInput();
+    console.log(user);
+  };
+
+  const validateInput = () => {
+    if (email === "" || password === "") {
+      M.toast({ html: "Please enter all fields", classes: "red" });
+    }
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -20,7 +33,7 @@ const Login = () => {
         </div>
       </div>
       <div className="row">
-        <form className="col s12">
+        <form className="col s12" onSubmit={onSubmit}>
           <div className="row">
             <div className="input-field col s4 offset-s4">
               <input
