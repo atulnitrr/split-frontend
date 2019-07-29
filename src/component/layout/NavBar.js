@@ -14,6 +14,13 @@ const NavBar = () => {
       <div>
         <Link to="/activity">Activity</Link>
       </div>
+      <div>
+        <Link to="/register">Register</Link>
+      </div>
+
+      <div>
+        <Link to="/login">Login</Link>
+      </div>
     </div>
   );
 };
