@@ -11,13 +11,16 @@ const Login = props => {
   const { email, password } = user;
 
   const authContext = useContext(AuthContext);
-  const { login, loggedinUser } = authContext;
+  const { login, loggedinUser, error, clearError } = authContext;
 
   useEffect(() => {
     if (loggedinUser !== null) {
       props.history.push("/");
+    } else if (error !== null) {
+      M.toast({ html: error, classes: "red" });
+      clearError();
     }
-  }, [loggedinUser]);
+  }, [loggedinUser, error]);
 
   const onChange = e => setuser({ ...user, [e.target.name]: e.target.value });
 

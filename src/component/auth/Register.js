@@ -12,7 +12,13 @@ const Register = props => {
   const { email, password, confirmpassword } = user;
 
   const authContext = useContext(AuthContext);
-  const { isRegistered, register, clearRegister, error } = authContext;
+  const {
+    isRegistered,
+    register,
+    clearRegister,
+    error,
+    clearError
+  } = authContext;
 
   useEffect(() => {
     if (isRegistered) {
@@ -20,6 +26,9 @@ const Register = props => {
       // this sets isRegistered to false , if i dont do this then after register it will go login but when we click on register agina it
       // will again redirect to login
       clearRegister();
+    } else if (error !== null) {
+      M.toast({ html: error, classes: "red" });
+      clearError();
     }
   });
 
