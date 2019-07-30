@@ -3,7 +3,6 @@ import M from "materialize-css/dist/js/materialize.min.js";
 import GroupOptions from "./GroupOptions";
 import AddUserOptions from "./options/AddUserOptions";
 import UserContext from "../../context/user/userContext";
-import UsersOptions from "./UsersOptions";
 
 const AddPersonModal = () => {
   const [userName, setUserName] = useState("");
@@ -40,6 +39,8 @@ const AddPersonModal = () => {
       const users = [];
       users.push(userName);
       addUser(userGroup, users);
+      setUserGroup("");
+      setUserName("");
     }
   };
   return (
@@ -73,8 +74,6 @@ const AddPersonModal = () => {
               <option value="" disabled>
                 Select user
               </option>
-              <option>Test1</option>
-              <option>Test2</option>
               <AddUserOptions user={availableUsers} />
             </select>
           </div>

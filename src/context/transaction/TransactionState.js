@@ -11,7 +11,6 @@ import {
   RECORD_PAYMENT_FAILURE,
   CLEAR_PAYMENT
 } from "../types";
-import { async } from "q";
 
 const TransactionState = props => {
   const initialState = {
@@ -31,7 +30,6 @@ const TransactionState = props => {
     try {
       const res = await axios.post(`${URL}/trans`, payload);
       dispatch({ type: RECORD_PAYMENT_SUCCESS });
-      console.log(res);
     } catch (error) {
       dispatch({
         type: RECORD_PAYMENT_FAILURE,
@@ -44,7 +42,6 @@ const TransactionState = props => {
   const getUserBalanceInGroup = async group => {
     try {
       const res = await axios.get(`${URL}/trans/${group}`);
-      console.log(res);
       dispatch({ type: GET_ALL_USERS_OF_GROUP_SUCCESS, payload: res.data });
     } catch (error) {
       dispatch({

@@ -35,7 +35,6 @@ const UserState = props => {
         groupName,
         userNames
       });
-      console.log(res.data);
       dispatch({ type: USER_ADDED_SUCCESS });
     } catch (error) {
       dispatch({ type: USER_ADDED_FAILURE, payload: error.response.data });

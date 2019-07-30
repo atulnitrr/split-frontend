@@ -1,20 +1,26 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
 import UserContext from "../../context/user/userContext";
 import TransactionContext from "../../context/transaction/transactionContext";
 import GroupOptions from "./GroupOptions";
-import UsersOptions from "./UsersOptions";
+import AddUserOptions from "./options/AddUserOptions";
 
 const AddPaymentModal = () => {
   const userContext = useContext(UserContext);
-  const { getUsersOfGroup } = userContext;
+  const { getUsersOfGroup, currentGroupUser } = userContext;
 
   const transactionContext = useContext(TransactionContext);
-  const { recordPayment } = transactionContext;
+  const { recordPayment, userAdded } = transactionContext;
 
   const [userName, setUserName] = useState("");
   const [groupName, setGroupName] = useState("");
   const [amount, setAmout] = useState(0);
+
+  useEffect(() => {
+    if (groupName !== "") {
+      getUsersOfGroup(groupName);
+    }
+  }, [userAdded]);
 
   const onGroupSelect = e => {
     setGroupName(e.target.value);
@@ -33,6 +39,10 @@ const AddPaymentModal = () => {
 
       recordPayment(groupName, payments);
     }
+    // clear the form
+    setGroupName("");
+    setUserName("");
+    setAmout(0);
   };
 
   return (
@@ -66,7 +76,7 @@ const AddPaymentModal = () => {
               <option value="" disabled>
                 Select user ...
               </option>
-              <UsersOptions groupName={groupName} />
+              <AddUserOptions user={currentGroupUser} />
             </select>
           </div>
         </div>

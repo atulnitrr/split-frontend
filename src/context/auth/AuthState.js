@@ -41,7 +41,6 @@ const AuthState = props => {
   const login = async user => {
     try {
       const res = await axois.post(`${URL}/users/login`, user);
-      console.log(res);
       let payload = {
         user: user.email.split("@")[0],
         s_token: res.headers.authorization
