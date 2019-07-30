@@ -78,10 +78,9 @@ const UserState = props => {
   const getAvailableUsers = async () => {
     try {
       const res = await axios.get(`${URL}/users`);
-      console.log(res.data);
       dispatch({ type: SET_AVAIL_USERS, payload: res.data });
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
     }
   };
 

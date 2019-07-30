@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
 import GroupOptions from "./GroupOptions";
+import AddUserOptions from "./options/AddUserOptions";
 import UserContext from "../../context/user/userContext";
+import UsersOptions from "./UsersOptions";
 
 const AddPersonModal = () => {
   const [userName, setUserName] = useState("");
@@ -62,6 +64,23 @@ const AddPersonModal = () => {
         </div>
         <div className="row">
           <div className="input-field">
+            <select
+              name="userName"
+              value={userName}
+              className="browser-default"
+              onChange={onChange}
+            >
+              <option value="" disabled>
+                Select user
+              </option>
+              <option>Test1</option>
+              <option>Test2</option>
+              <AddUserOptions user={availableUsers} />
+            </select>
+          </div>
+        </div>
+        {/* <div className="row">
+          <div className="input-field">
             <input
               type="text"
               name="userName"
@@ -70,7 +89,7 @@ const AddPersonModal = () => {
             />
             <label htmlFor="userName">name</label>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="modal-footer">
         <a href="#!" className="btn blue modal-close" onClick={onsubmit}>

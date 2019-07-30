@@ -1,11 +1,7 @@
 import React from "react";
 
-const AddUserOptions = () => {
-  return (
-    <div>
-      <h2>Hello in div</h2>
-    </div>
-  );
+const AddUserOptions = ({ user }) => {
+  return user.map(user => <option key={user.email}>{user.email}</option>);
 };
 
 export default AddUserOptions;
