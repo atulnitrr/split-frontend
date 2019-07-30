@@ -15,8 +15,13 @@ import Register from "./component/auth/Register";
 import UserState from "./context/user/UserState";
 import AuthState from "./context/auth/AuthState";
 import TransactionState from "./context/transaction/TransactionState";
+import setAuthTokens from "./utils/setAuthTokens";
 
-function App() {
+if (localStorage.getItem("s_token")) {
+  setAuthTokens(localStorage.getItem("s_token"));
+}
+
+const App = () => {
   useEffect(() => {
     M.AutoInit();
   });
@@ -43,6 +48,6 @@ function App() {
       </AuthState>
     </Router>
   );
-}
+};
 
 export default App;
