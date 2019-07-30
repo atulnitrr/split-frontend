@@ -6,7 +6,8 @@ import {
   USER_ADDED_SUCCESS,
   USER_ADDED_FAILURE,
   GET_ALL_USERS_OF_GROUP_SUCCESS,
-  GET_ALL_USERS_OF_GROUP_FAILURE
+  GET_ALL_USERS_OF_GROUP_FAILURE,
+  SET_AVAIL_USERS
 } from "../types";
 
 export default (state, action) => {
@@ -46,6 +47,11 @@ export default (state, action) => {
         ...state,
         error: action.payload,
         loading: false
+      };
+    case SET_AVAIL_USERS:
+      return {
+        ...state,
+        availableUsers: action.payload
       };
     case CLEAR_ERROR:
       return {

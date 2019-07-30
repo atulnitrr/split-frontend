@@ -12,7 +12,8 @@ import {
   USER_ADDED_SUCCESS,
   USER_ADDED_FAILURE,
   GET_ALL_USERS_OF_GROUP_SUCCESS,
-  GET_ALL_USERS_OF_GROUP_FAILURE
+  GET_ALL_USERS_OF_GROUP_FAILURE,
+  SET_AVAIL_USERS
 } from "../types";
 
 const UserState = props => {
@@ -22,7 +23,8 @@ const UserState = props => {
     error: null,
     groups: [],
     currentGroupUser: [],
-    loading: true
+    loading: true,
+    availableUsers: []
   };
 
   const [state, dispatch] = useReducer(userReducer, initialState);
@@ -72,6 +74,17 @@ const UserState = props => {
       console.log(error.response);
     }
   };
+
+  const getAvailableUsers = async () => {
+    try {
+      const res = await axios.get(`${URL}/users`);
+      console.log(res.data);
+      dispatch({ type: SET_AVAIL_USERS, payload: res.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const clearError = () => {
     dispatch({ type: CLEAR_ERROR });
   };
@@ -85,11 +98,13 @@ const UserState = props => {
         loading: state.loading,
         userAdded: state.userAdded,
         currentGroupUser: state.currentGroupUser,
+        availableUsers: state.availableUsers,
         addGroup,
         clearError,
         getAllGroups,
         addUser,
-        getUsersOfGroup
+        getUsersOfGroup,
+        getAvailableUsers
       }}
     >
       {props.children}

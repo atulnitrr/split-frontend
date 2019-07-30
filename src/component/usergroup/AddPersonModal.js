@@ -8,9 +8,17 @@ const AddPersonModal = () => {
   const [userGroup, setUserGroup] = useState("");
 
   const userContext = useContext(UserContext);
-  const { userAdded, addUser, error, clearError } = userContext;
+  const {
+    userAdded,
+    addUser,
+    error,
+    clearError,
+    availableUsers,
+    getAvailableUsers
+  } = userContext;
 
   useEffect(() => {
+    getAvailableUsers();
     if (userAdded) {
       M.toast({ html: `${userName} added`, classes: "green" });
     } else if (error !== null) {
