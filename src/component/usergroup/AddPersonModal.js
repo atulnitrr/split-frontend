@@ -10,27 +10,41 @@ const AddPersonModal = () => {
 
   const userContext = useContext(UserContext);
   const {
-    userAdded,
     addUser,
-    error,
-    clearError,
     availableUsers,
     getAvailableUsers,
-    userAddedInGroup
+    currentGroupUser,
+    userAddedInGroup,
+    getUsersOfGroup,
+    toggleAddUser,
+    addUserError,
+    addUserSuccess,
+    clearAddUserError
   } = userContext;
 
   useEffect(() => {
-    if (userAdded) {
+    if (addUserSuccess) {
       M.toast({ html: `${userName} added`, classes: "green" });
-    } else if (error !== null) {
-      M.toast({ html: `${userName} could not be added`, classes: "red" });
+    } else if (addUserError !== null) {
+      M.toast({
+        html: `${userName} could not be added ${addUserError}`,
+        classes: "red"
+      });
+      clearAddUserError();
     }
-    clearError();
-  }, [error]);
+    setUserGroup("");
+    setUserName("");
+  }, [toggleAddUser]);
 
   useEffect(() => {
     getAvailableUsers();
   }, []);
+
+  useEffect(() => {
+    if (userGroup !== "") {
+      getUsersOfGroup(userGroup);
+    }
+  }, [userGroup]);
 
   const onsubmit = e => {
     if (userName === "") {
@@ -39,8 +53,6 @@ const AddPersonModal = () => {
       const users = [];
       users.push(userName);
       addUser(userGroup, users);
-      setUserGroup("");
-      setUserName("");
     }
   };
   return (
@@ -74,7 +86,10 @@ const AddPersonModal = () => {
               <option value="" disabled>
                 Select user
               </option>
-              <AddUserOptions user={availableUsers} />
+              <AddUserOptions
+                user={availableUsers}
+                filterUser={currentGroupUser}
+              />
             </select>
           </div>
         </div>

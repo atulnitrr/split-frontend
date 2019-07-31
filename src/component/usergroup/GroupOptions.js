@@ -3,10 +3,10 @@ import UserContext from "../../context/user/userContext";
 
 const GroupOptions = () => {
   const userContext = useContext(UserContext);
-  const { getAllGroups, groups, loading, groupAdded } = userContext;
+  const { getAllGroups, groups, loading, toggleGroupAdded } = userContext;
   useEffect(() => {
     getAllGroups();
-  }, [groupAdded]);
+  }, [toggleGroupAdded]);
 
   return (
     !loading &&

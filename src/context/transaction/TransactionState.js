@@ -43,7 +43,6 @@ const TransactionState = props => {
   const getUserBalanceInGroup = async group => {
     try {
       const res = await axios.get(`${URL}/trans/${group}`);
-      console.log("user -balacne");
       dispatch({ type: GET_ALL_USERS_OF_GROUP_SUCCESS, payload: res.data });
     } catch (error) {
       dispatch({

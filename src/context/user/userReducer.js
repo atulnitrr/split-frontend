@@ -8,7 +8,8 @@ import {
   GET_ALL_USERS_OF_GROUP_SUCCESS,
   GET_ALL_USERS_OF_GROUP_FAILURE,
   SET_AVAIL_USERS,
-  CLEAR_ADD_GROUP_ERROR
+  CLEAR_ADD_GROUP_ERROR,
+  CLEAR_ADD_PERSON_ERROR
 } from "../types";
 
 export default (state, action) => {
@@ -22,10 +23,17 @@ export default (state, action) => {
     case USER_ADDED_SUCCESS:
       return {
         ...state,
-        userAdded: true,
+        addUserSuccess: true,
+        toggleAddUser: !state.toggleAddUser,
         userAddedInGroup: action.payload
       };
     case USER_ADDED_FAILURE:
+      return {
+        ...state,
+        addUserSuccess: false,
+        toggleAddUser: !state.toggleAddUser,
+        addUserError: action.payload
+      };
     case ADD_GROUP_FAILURE:
       return {
         ...state,
@@ -67,6 +75,11 @@ export default (state, action) => {
         addGroupError: null
       };
 
+    case CLEAR_ADD_PERSON_ERROR:
+      return {
+        ...state,
+        addUserError: null
+      };
     default:
       return {
         ...state

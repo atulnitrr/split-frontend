@@ -21,6 +21,7 @@ const AddGroupModal = () => {
       M.toast({ html: addGroupError, classes: "red" });
       clearAddGroupError();
     }
+    setGroupName("");
   }, [toggleGroupAdded]);
 
   const onsubmit = () => {

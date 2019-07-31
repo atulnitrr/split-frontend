@@ -14,14 +14,17 @@ import {
   GET_ALL_USERS_OF_GROUP_SUCCESS,
   GET_ALL_USERS_OF_GROUP_FAILURE,
   SET_AVAIL_USERS,
-  CLEAR_ADD_GROUP_ERROR
+  CLEAR_ADD_GROUP_ERROR,
+  CLEAR_ADD_PERSON_ERROR
 } from "../types";
 
 const UserState = props => {
   const initialState = {
     toggleGroupAdded: false,
     groupAddedSuccess: false,
-    userAdded: false,
+    addUserSuccess: false,
+    toggleAddUser: false,
+    addUserError: null,
     userAddedInGroup: null,
     error: null,
     addGroupError: null,
@@ -73,6 +76,7 @@ const UserState = props => {
       const res = await axios.get(`${URL}/users/${group}`);
       dispatch({ type: GET_ALL_USERS_OF_GROUP_SUCCESS, payload: res.data });
     } catch (error) {
+      debugger;
       dispatch({
         type: GET_ALL_USERS_OF_GROUP_FAILURE,
         payload: error.response.data
@@ -98,6 +102,9 @@ const UserState = props => {
     dispatch({ type: CLEAR_ADD_GROUP_ERROR });
   };
 
+  const clearAddUserError = () => {
+    dispatch({ type: CLEAR_ADD_PERSON_ERROR });
+  };
   return (
     <UserContext.Provider
       value={{
@@ -107,17 +114,23 @@ const UserState = props => {
         addGroupError: state.addGroupError,
         groups: state.groups,
         loading: state.loading,
-        userAdded: state.userAdded,
+
+        addUserSuccess: state.addUserSuccess,
+        toggleAddUser: state.toggleAddUser,
+        addUserError: state.addUserError,
         currentGroupUser: state.currentGroupUser,
+
         availableUsers: state.availableUsers,
         userAddedInGroup: state.userAddedInGroup,
+
         addGroup,
         clearError,
         getAllGroups,
         addUser,
         getUsersOfGroup,
         getAvailableUsers,
-        clearAddGroupError
+        clearAddGroupError,
+        clearAddUserError
       }}
     >
       {props.children}
