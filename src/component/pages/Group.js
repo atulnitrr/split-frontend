@@ -17,7 +17,7 @@ const Group = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <div style={{ paddingTop: "2rem" }}>
         <select
           className="browser-default"

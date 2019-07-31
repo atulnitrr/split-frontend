@@ -8,16 +8,21 @@ const Users = () => {
     currentGroupUserBalance,
     getUserBalanceInGroup,
     currentGroup,
-    paymentDone,
-    clearPayment
+    togglePayment,
+    paymentSuccessFull
   } = transactionContext;
 
   useEffect(() => {
     if (currentGroup !== null) {
       getUserBalanceInGroup(currentGroup);
-      clearPayment();
     }
-  }, [currentGroup, paymentDone]);
+  }, [currentGroup]);
+
+  useEffect(() => {
+    if (paymentSuccessFull) {
+      getUserBalanceInGroup(currentGroup);
+    }
+  }, [togglePayment]);
 
   return (
     <Fragment>

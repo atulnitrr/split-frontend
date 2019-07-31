@@ -18,7 +18,7 @@ const AddGroupModal = () => {
     if (groupAddedSuccess) {
       M.toast({ html: `Group added --> ${groupName}`, classes: "green" });
     } else if (addGroupError !== null) {
-      M.toast({ html: addGroupError, classes: "red" });
+      M.toast({ html: `${groupName} -->  ${addGroupError}`, classes: "red" });
       clearAddGroupError();
     }
     setGroupName("");

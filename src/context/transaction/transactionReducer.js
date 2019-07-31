@@ -3,7 +3,9 @@ import {
   GET_ALL_USERS_OF_GROUP_SUCCESS,
   RECORD_PAYMENT_SUCCESS,
   RECORD_PAYMENT_FAILURE,
-  CLEAR_PAYMENT
+  CLEAR_PAYMENT_ERROR,
+  GET_GROUP_BALANCE_SUCCESS,
+  GET_ALL_USERS_OF_GROUP_FAILURE
 } from "../types";
 
 export default (state, action) => {
@@ -11,27 +13,35 @@ export default (state, action) => {
     case RECORD_PAYMENT_SUCCESS:
       return {
         ...state,
-        paymentDone: true
-      };
-    case CLEAR_PAYMENT:
-      return {
-        ...state,
-        paymentDone: false
+        togglePayment: !state.togglePayment,
+        paymentSuccessFull: true
       };
     case RECORD_PAYMENT_FAILURE:
       return {
         ...state,
-        paymentDone: false
+        togglePayment: !state.togglePayment,
+        paymentSuccessFull: false,
+        paymentError: action.payload
+      };
+    case CLEAR_PAYMENT_ERROR:
+      return {
+        ...state,
+        paymentError: null
       };
     case SET_CURRENT_GROUP:
       return {
         ...state,
         currentGroup: action.payload
       };
-    case GET_ALL_USERS_OF_GROUP_SUCCESS:
+    case GET_GROUP_BALANCE_SUCCESS:
       return {
         ...state,
         currentGroupUserBalance: action.payload
+      };
+    case GET_ALL_USERS_OF_GROUP_FAILURE:
+      return {
+        ...state,
+        paymentError: action.payload
       };
     default:
       return {

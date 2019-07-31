@@ -6,10 +6,11 @@ import { URL } from "../../Appconst";
 import {
   RECORD_PAYMENT_SUCCESS,
   SET_CURRENT_GROUP,
-  GET_ALL_USERS_OF_GROUP_SUCCESS,
-  GET_ALL_USERS_OF_GROUP_FAILURE,
   RECORD_PAYMENT_FAILURE,
-  CLEAR_PAYMENT
+  CLEAR_PAYMENT,
+  CLEAR_PAYMENT_ERROR,
+  GET_GROUP_BALANCE_SUCCESS,
+  GET_GROUP_BALANCE_FAILURE
 } from "../types";
 
 const TransactionState = props => {
@@ -17,6 +18,9 @@ const TransactionState = props => {
     loading: false,
     currentGroup: null,
     paymentDone: false,
+    togglePayment: false,
+    paymentSuccessFull: false,
+    paymentError: null,
     currentGroupUserBalance: []
   };
 
@@ -29,27 +33,24 @@ const TransactionState = props => {
     };
     try {
       const res = await axios.post(`${URL}/trans`, payload);
-      console.log("payment done ");
       dispatch({ type: RECORD_PAYMENT_SUCCESS });
     } catch (error) {
       dispatch({
         type: RECORD_PAYMENT_FAILURE,
-        payload: error.response.data
+        payload: error.response.data.message
       });
-      console.log(error.response);
     }
   };
 
   const getUserBalanceInGroup = async group => {
     try {
       const res = await axios.get(`${URL}/trans/${group}`);
-      dispatch({ type: GET_ALL_USERS_OF_GROUP_SUCCESS, payload: res.data });
+      dispatch({ type: GET_GROUP_BALANCE_SUCCESS, payload: res.data });
     } catch (error) {
       dispatch({
-        type: GET_ALL_USERS_OF_GROUP_FAILURE,
+        type: GET_GROUP_BALANCE_FAILURE,
         payload: error.response.data
       });
-      console.log(error.response);
     }
   };
 
@@ -57,21 +58,24 @@ const TransactionState = props => {
     dispatch({ type: SET_CURRENT_GROUP, payload: group });
   };
 
-  const clearPayment = () => {
-    dispatch({ type: CLEAR_PAYMENT });
+  const clearPaymentError = () => {
+    dispatch({ type: CLEAR_PAYMENT_ERROR });
   };
 
   return (
     <TransactionContext.Provider
       value={{
         loading: state.loading,
+        togglePayment: state.togglePayment,
+        paymentSuccessFull: state.paymentSuccessFull,
+        paymentError: state.paymentError,
         currentGroup: state.currentGroup,
         paymentDone: state.paymentDone,
         currentGroupUserBalance: state.currentGroupUserBalance,
         recordPayment,
-        clearPayment,
         getUserBalanceInGroup,
-        setCurrentGroup
+        setCurrentGroup,
+        clearPaymentError
       }}
     >
       {props.children}

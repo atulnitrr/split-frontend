@@ -16,11 +16,32 @@ const AddPaymentModal = () => {
   } = userContext;
 
   const transactionContext = useContext(TransactionContext);
-  const { recordPayment } = transactionContext;
+  const {
+    recordPayment,
+    togglePayment,
+    paymentSuccessFull,
+    paymentError,
+    clearPaymentError
+  } = transactionContext;
 
   const [userName, setUserName] = useState("");
   const [groupName, setGroupName] = useState("");
   const [amount, setAmout] = useState(0);
+
+  useEffect(() => {
+    if (paymentSuccessFull) {
+      M.toast({
+        html: `${userName} added ${amount} in group ${groupName}`,
+        classes: "green"
+      });
+    } else if (paymentError !== null) {
+      M.toast({ html: "Could not add transaction ", classes: "red" });
+      clearPaymentError();
+    }
+    setUserName("");
+    setGroupName("");
+    setAmout(0);
+  }, [togglePayment]);
 
   useEffect(() => {
     if (groupName !== "") {
@@ -28,6 +49,9 @@ const AddPaymentModal = () => {
     }
   }, [groupName]);
 
+  // when someone add the user in the middle like if we first went to trans modal and selcted a group
+  // now we came back to add user in group modal and added user in that group in this case if we
+  // go back to trans modal again then we will see the new user added in dropdown
   useEffect(() => {
     if (groupName === userAddedInGroup && addUserSuccess) {
       getUsersOfGroup(groupName);
@@ -45,10 +69,6 @@ const AddPaymentModal = () => {
       payments.push({ paidBy: userName, amount: amount });
       recordPayment(groupName, payments);
     }
-    // clear the form
-    // setGroupName("");
-    // setUserName("");
-    // setAmout(0);
   };
 
   return (
