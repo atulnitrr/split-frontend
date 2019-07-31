@@ -20,12 +20,7 @@ const AddPaymentModal = () => {
     if (groupName !== "") {
       getUsersOfGroup(groupName);
     }
-  }, [userAdded]);
-
-  const onGroupSelect = e => {
-    setGroupName(e.target.value);
-    getUsersOfGroup(e.target.value);
-  };
+  }, [groupName]);
 
   const onSubmit = e => {
     if (isNaN(amount)) {
@@ -55,7 +50,7 @@ const AddPaymentModal = () => {
               className="browser-default"
               name="group"
               value={groupName}
-              onChange={onGroupSelect}
+              onChange={e => setGroupName(e.target.value)}
             >
               <option value="" disabled>
                 Select group ..

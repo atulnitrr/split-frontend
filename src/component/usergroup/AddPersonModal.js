@@ -15,22 +15,22 @@ const AddPersonModal = () => {
     error,
     clearError,
     availableUsers,
-    getAvailableUsers
+    getAvailableUsers,
+    userAddedInGroup
   } = userContext;
 
   useEffect(() => {
-    getAvailableUsers();
     if (userAdded) {
       M.toast({ html: `${userName} added`, classes: "green" });
     } else if (error !== null) {
       M.toast({ html: `${userName} could not be added`, classes: "red" });
     }
     clearError();
-  }, [userAdded, error]);
+  }, [error]);
 
-  const onChange = e => {
-    setUserName(e.target.value);
-  };
+  useEffect(() => {
+    getAvailableUsers();
+  }, []);
 
   const onsubmit = e => {
     if (userName === "") {
@@ -69,7 +69,7 @@ const AddPersonModal = () => {
               name="userName"
               value={userName}
               className="browser-default"
-              onChange={onChange}
+              onChange={e => setUserName(e.target.value)}
             >
               <option value="" disabled>
                 Select user

@@ -4,21 +4,26 @@ import M from "materialize-css/dist/js/materialize.min.js";
 
 const AddGroupModal = () => {
   const userContext = useContext(UserContext);
-  const { addGroup, clearError, error, groupAdded } = userContext;
+  const {
+    addGroup,
+    clearAddGroupError,
+    addGroupError,
+    groupAddedSuccess,
+    toggleGroupAdded
+  } = userContext;
 
   const [groupName, setGroupName] = useState("");
-  const onChange = e => setGroupName(e.target.value);
 
   useEffect(() => {
-    if (groupAdded) {
+    if (groupAddedSuccess) {
       M.toast({ html: `Group added --> ${groupName}`, classes: "green" });
-    } else if (error !== null) {
-      M.toast({ html: error, classes: "red" });
+    } else if (addGroupError !== null) {
+      M.toast({ html: addGroupError, classes: "red" });
+      clearAddGroupError();
     }
-    clearError();
-  }, [groupAdded]);
+  }, [toggleGroupAdded]);
 
-  const onsubmit = e => {
+  const onsubmit = () => {
     if (groupName === "") {
       M.toast({ html: "Please enter group Name", classes: "red" });
     } else {
@@ -36,7 +41,7 @@ const AddGroupModal = () => {
               type="text"
               name="groupName"
               value={groupName}
-              onChange={onChange}
+              onChange={e => setGroupName(e.target.value)}
             />
             <label htmlFor="name">group</label>
           </div>

@@ -13,14 +13,18 @@ import {
   USER_ADDED_FAILURE,
   GET_ALL_USERS_OF_GROUP_SUCCESS,
   GET_ALL_USERS_OF_GROUP_FAILURE,
-  SET_AVAIL_USERS
+  SET_AVAIL_USERS,
+  CLEAR_ADD_GROUP_ERROR
 } from "../types";
 
 const UserState = props => {
   const initialState = {
-    groupAdded: false,
+    toggleGroupAdded: false,
+    groupAddedSuccess: false,
     userAdded: false,
+    userAddedInGroup: null,
     error: null,
+    addGroupError: null,
     groups: [],
     currentGroupUser: [],
     loading: true,
@@ -35,7 +39,7 @@ const UserState = props => {
         groupName,
         userNames
       });
-      dispatch({ type: USER_ADDED_SUCCESS });
+      dispatch({ type: USER_ADDED_SUCCESS, payload: groupName });
     } catch (error) {
       dispatch({ type: USER_ADDED_FAILURE, payload: error.response.data });
       console.log(error.rsponse);
@@ -48,7 +52,10 @@ const UserState = props => {
       await axios.post(`${URL}/users/addgroup`, payload);
       dispatch({ type: ADD_GROUP_SUCCESS });
     } catch (error) {
-      dispatch({ type: ADD_GROUP_FAILURE, payload: error.response.data });
+      dispatch({
+        type: ADD_GROUP_FAILURE,
+        payload: error.response.data.message
+      });
     }
   };
 
@@ -87,22 +94,30 @@ const UserState = props => {
     dispatch({ type: CLEAR_ERROR });
   };
 
+  const clearAddGroupError = () => {
+    dispatch({ type: CLEAR_ADD_GROUP_ERROR });
+  };
+
   return (
     <UserContext.Provider
       value={{
-        groupAdded: state.groupAdded,
+        toggleGroupAdded: state.toggleGroupAdded,
+        groupAddedSuccess: state.groupAddedSuccess,
         error: state.error,
+        addGroupError: state.addGroupError,
         groups: state.groups,
         loading: state.loading,
         userAdded: state.userAdded,
         currentGroupUser: state.currentGroupUser,
         availableUsers: state.availableUsers,
+        userAddedInGroup: state.userAddedInGroup,
         addGroup,
         clearError,
         getAllGroups,
         addUser,
         getUsersOfGroup,
-        getAvailableUsers
+        getAvailableUsers,
+        clearAddGroupError
       }}
     >
       {props.children}
