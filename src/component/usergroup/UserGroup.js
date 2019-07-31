@@ -14,7 +14,7 @@ const UserGroup = () => {
       <AddBtn />
       <AddGroupModal />
       <AddPersonModal />
-      {/* <AddPaymentModal /> */}
+      <AddPaymentModal />
     </Fragment>
   );
 };

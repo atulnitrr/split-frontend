@@ -24,7 +24,10 @@ const AddPersonModal = () => {
 
   useEffect(() => {
     if (addUserSuccess) {
-      M.toast({ html: `${userName} added`, classes: "green" });
+      M.toast({
+        html: `${userName} -> added to group -> ${userGroup}`,
+        classes: "green"
+      });
     } else if (addUserError !== null) {
       M.toast({
         html: `${userName} could not be added ${addUserError}`,

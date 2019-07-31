@@ -7,10 +7,16 @@ import AddUserOptions from "./options/AddUserOptions";
 
 const AddPaymentModal = () => {
   const userContext = useContext(UserContext);
-  const { getUsersOfGroup, currentGroupUser } = userContext;
+  const {
+    getUsersOfGroup,
+    currentGroupUser,
+    toggleAddUser,
+    addUserSuccess,
+    userAddedInGroup
+  } = userContext;
 
   const transactionContext = useContext(TransactionContext);
-  const { recordPayment, userAdded } = transactionContext;
+  const { recordPayment } = transactionContext;
 
   const [userName, setUserName] = useState("");
   const [groupName, setGroupName] = useState("");
@@ -22,6 +28,12 @@ const AddPaymentModal = () => {
     }
   }, [groupName]);
 
+  useEffect(() => {
+    if (groupName === userAddedInGroup && addUserSuccess) {
+      getUsersOfGroup(groupName);
+    }
+  }, [toggleAddUser]);
+
   const onSubmit = e => {
     if (isNaN(amount)) {
       M.toast({
@@ -31,13 +43,12 @@ const AddPaymentModal = () => {
     } else {
       const payments = [];
       payments.push({ paidBy: userName, amount: amount });
-
       recordPayment(groupName, payments);
     }
     // clear the form
-    setGroupName("");
-    setUserName("");
-    setAmout(0);
+    // setGroupName("");
+    // setUserName("");
+    // setAmout(0);
   };
 
   return (
