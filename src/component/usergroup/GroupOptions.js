@@ -9,7 +9,6 @@ const GroupOptions = () => {
   }, [toggleGroupAdded]);
 
   return (
-    !loading &&
     groups.length > 0 &&
     groups.map(t => (
       <option key={t} value={t}>

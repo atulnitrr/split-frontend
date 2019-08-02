@@ -36,7 +36,8 @@ export default (state, action) => {
     case GET_GROUP_BALANCE_SUCCESS:
       return {
         ...state,
-        currentGroupUserBalance: action.payload
+        currentGroupUserBalance: action.payload.details,
+        participantUsers: action.payload.participantUsers
       };
     case GET_ALL_USERS_OF_GROUP_FAILURE:
       return {

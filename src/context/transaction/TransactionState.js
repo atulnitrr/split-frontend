@@ -21,7 +21,8 @@ const TransactionState = props => {
     togglePayment: false,
     paymentSuccessFull: false,
     paymentError: null,
-    currentGroupUserBalance: []
+    currentGroupUserBalance: [],
+    participantUsers: []
   };
 
   const [state, dispatch] = useReducer(transactionReducer, initialState);
@@ -44,8 +45,21 @@ const TransactionState = props => {
 
   const getUserBalanceInGroup = async group => {
     try {
-      const res = await axios.get(`${URL}/trans/${group}`);
-      dispatch({ type: GET_GROUP_BALANCE_SUCCESS, payload: res.data });
+      const res = await axios.get(`${URL}/trans/group_txn_details/${group}`);
+      const participantUsers = [
+        ...res.data.map(u => u.paidBy),
+        ...res.data.map(u => u.paidTo)
+      ];
+
+      const distUser = participantUsers.reduce(
+        (unique, item) => (unique.includes(item) ? unique : [...unique, item]),
+        []
+      );
+
+      dispatch({
+        type: GET_GROUP_BALANCE_SUCCESS,
+        payload: { details: res.data, participantUsers: distUser }
+      });
     } catch (error) {
       dispatch({
         type: GET_GROUP_BALANCE_FAILURE,
@@ -72,6 +86,7 @@ const TransactionState = props => {
         currentGroup: state.currentGroup,
         paymentDone: state.paymentDone,
         currentGroupUserBalance: state.currentGroupUserBalance,
+        participantUsers: state.participantUsers,
         recordPayment,
         getUserBalanceInGroup,
         setCurrentGroup,

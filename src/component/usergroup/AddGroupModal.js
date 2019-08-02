@@ -15,7 +15,7 @@ const AddGroupModal = () => {
   const [groupName, setGroupName] = useState("");
 
   useEffect(() => {
-    if (groupAddedSuccess) {
+    if (groupName !== "" && groupAddedSuccess) {
       M.toast({ html: `Group added --> ${groupName}`, classes: "green" });
     } else if (addGroupError !== null) {
       M.toast({ html: `${groupName} -->  ${addGroupError}`, classes: "red" });

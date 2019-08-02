@@ -23,7 +23,7 @@ const AddPersonModal = () => {
   } = userContext;
 
   useEffect(() => {
-    if (addUserSuccess) {
+    if (addUserSuccess && userName !== "" && userGroup !== "") {
       M.toast({
         html: `${userName} -> added to group -> ${userGroup}`,
         classes: "green"

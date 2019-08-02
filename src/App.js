@@ -17,7 +17,7 @@ import AuthState from "./context/auth/AuthState";
 import TransactionState from "./context/transaction/TransactionState";
 import setAuthTokens from "./utils/setAuthTokens";
 
-if (localStorage.getItem("s_token")) {
+if (localStorage.getItem("s_token") !== null) {
   setAuthTokens(localStorage.getItem("s_token"));
 }
 
